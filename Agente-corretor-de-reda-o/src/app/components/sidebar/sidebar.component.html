@@ -1,0 +1,103 @@
+<nav class="sidebar" [class.collapsed]="isCollapsed">
+  <div class="sidebar-header">
+    <div class="logo-sidebar" *ngIf="!isCollapsed">
+      <svg class="logo-icon" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <rect x="15" y="70" width="30" height="35" rx="3" fill="currentColor" opacity="0.8"/>
+        <rect x="75" y="70" width="30" height="35" rx="3" fill="currentColor" opacity="0.8"/>
+        <line x1="20" y1="78" x2="40" y2="78" stroke="white" stroke-width="1.2" opacity="0.7"/>
+        <line x1="20" y1="83" x2="40" y2="83" stroke="white" stroke-width="1.2" opacity="0.7"/>
+        <line x1="20" y1="88" x2="40" y2="88" stroke="white" stroke-width="1.2" opacity="0.7"/>
+        <line x1="80" y1="78" x2="100" y2="78" stroke="white" stroke-width="1.2" opacity="0.7"/>
+        <line x1="80" y1="83" x2="100" y2="83" stroke="white" stroke-width="1.2" opacity="0.7"/>
+        <line x1="80" y1="88" x2="100" y2="88" stroke="white" stroke-width="1.2" opacity="0.7"/>
+        <circle cx="60" cy="32" r="20" fill="currentColor" opacity="0.95"/>
+        <path d="M 45 45 Q 45 55 50 60 Q 55 55 55 45 Z" fill="currentColor" opacity="0.9"/>
+        <path d="M 42 50 Q 42 65 38 80 Q 38 88 60 88 Q 82 88 82 80 Q 78 65 78 50 Z" fill="currentColor" opacity="0.9"/>
+        <circle cx="60" cy="25" r="3" fill="white" opacity="0.9"/>
+        <path d="M 60 30 Q 60 35 58 38 Q 56 40 54 40" stroke="white" stroke-width="2" fill="none" opacity="0.9"/>
+      </svg>
+      <span class="logo-text">Socratis</span>
+    </div>
+    <button class="toggle-btn" (click)="onToggleCollapse()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+
+  <div class="sidebar-content">
+    <div class="nav-section">
+      <a 
+        class="nav-item" 
+        [class.active]="isActive('home')"
+        routerLink="/app/home"
+        routerLinkActive="active"
+        [title]="isCollapsed ? 'Home' : ''"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span *ngIf="!isCollapsed">Home</span>
+      </a>
+
+      <a 
+        class="nav-item" 
+        [class.active]="isActive('redacao')"
+        routerLink="/app/redacao"
+        routerLinkActive="active"
+        [title]="isCollapsed ? 'Corrigir Redação' : ''"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        <span *ngIf="!isCollapsed">Corrigir Redação</span>
+      </a>
+
+      <a 
+        class="nav-item" 
+        [class.active]="isActive('analises')"
+        routerLink="/app/analises"
+        routerLinkActive="active"
+        [title]="isCollapsed ? 'Minhas Análises' : ''"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+        </svg>
+        <span *ngIf="!isCollapsed">Minhas Análises</span>
+      </a>
+
+      <a 
+        class="nav-item" 
+        [class.active]="isActive('perfil')"
+        routerLink="/app/perfil"
+        routerLinkActive="active"
+        [title]="isCollapsed ? 'Perfil' : ''"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <span *ngIf="!isCollapsed">Perfil</span>
+      </a>
+    </div>
+
+  </div>
+
+  <div class="sidebar-footer" *ngIf="!isCollapsed && authService.currentUser">
+    <div class="user-mini">
+      <div class="user-avatar">
+        {{ authService.currentUser.nome.charAt(0).toUpperCase() }}
+      </div>
+      <div class="user-info-mini">
+        <div class="user-name-mini">{{ authService.currentUser.nome }}</div>
+      </div>
+    </div>
+  </div>
+</nav>
+

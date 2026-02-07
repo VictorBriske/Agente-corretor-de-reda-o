@@ -1,0 +1,101 @@
+<div class="analises-container">
+  <div class="view-shell">
+    <!-- LISTA -->
+    <div
+      class="list-view"
+      [class.is-hidden]="listHidden"
+      [class.anim-out]="listAnimatingOut"
+      [class.anim-in]="listAnimatingIn"
+    >
+      <div class="page-header">
+        <h1>Minhas Análises</h1>
+        <p class="page-subtitle">Histórico completo de todas as suas análises</p>
+      </div>
+
+      <div class="loading-state" *ngIf="isLoading">
+        <div class="spinner-small"></div>
+        <p>Carregando análises...</p>
+      </div>
+
+      <div class="error-state" *ngIf="error && !isLoading">
+        <p>{{ error }}</p>
+        <button class="btn-retry" (click)="carregarAnalises()">Tentar novamente</button>
+      </div>
+
+      <div class="analises-list" *ngIf="!isLoading && !error">
+        <div class="analise-card" *ngFor="let analise of analises">
+          <div class="analise-header">
+            <div class="analise-title-section">
+              <h3>{{ analise.titulo || 'Redação sem título' }}</h3>
+            </div>
+            <div class="analise-date">
+              {{ analise.data_analise || analise.tempo_processamento ? 'Processado' : 'N/A' }}
+            </div>
+          </div>
+          
+          <div class="analise-body">
+            <div class="nota-display">
+              <span class="nota-label">Nota Geral</span>
+              <span class="nota-value">{{ analise.avaliacao_final?.nota_geral || analise.nota_geral || 'N/A' }}</span>
+              <span class="nota-max">/ 10</span>
+            </div>
+          </div>
+          
+          <div class="analise-footer">
+            <button 
+              class="btn-view"
+              (click)="verAnaliseCompleta(analise.redacao_id || analise.id)"
+              [disabled]="carregandoAnalise"
+            >
+              {{ carregandoAnalise && analiseIdSelecionada === (analise.redacao_id || analise.id) ? 'Carregando...' : 'Ver Análise Completa' }}
+            </button>
+          </div>
+        </div>
+
+        <div class="empty-state" *ngIf="analises.length === 0">
+          <div class="empty-icon"></div>
+          <h3>Nenhuma análise encontrada</h3>
+          <p>Suas análises aparecerão aqui após o processamento das redações</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- DETALHE -->
+    <div
+      class="detail-view"
+      *ngIf="detailMounted"
+      [class.anim-in]="detailAnimatingIn"
+      [class.anim-out]="detailAnimatingOut"
+    >
+      <div class="analise-view">
+        <div class="analise-header-section">
+          <button class="btn-close" (click)="fecharAnalise()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Voltar
+          </button>
+        </div>
+
+        <div class="loading-analise" *ngIf="carregandoAnalise">
+          <div class="loading-card">
+            <div class="spinner"></div>
+            <h3>Carregando análise...</h3>
+            <p>Aguarde enquanto buscamos os detalhes da análise</p>
+          </div>
+        </div>
+
+        <div class="error-state" *ngIf="detailError && !carregandoAnalise">
+          <p>{{ detailError }}</p>
+          <button class="btn-retry" (click)="verAnaliseCompleta(analiseIdSelecionada!)" [disabled]="!analiseIdSelecionada">
+            Tentar novamente
+          </button>
+        </div>
+
+        <app-resultado-correcao *ngIf="analiseSelecionada && !carregandoAnalise" [resultado]="analiseSelecionada"></app-resultado-correcao>
+      </div>
+    </div>
+  </div>
+</div>
+

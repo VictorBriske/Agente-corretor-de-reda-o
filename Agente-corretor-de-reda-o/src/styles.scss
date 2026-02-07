@@ -1,0 +1,198 @@
+/* Design System - Socratis - Estilo Apple/Notion */
+
+:root {
+  /* Brand Primary - Azul Cobalto */
+  --primary: #2563EB;
+  --primary-dark: #1D4ED8;
+  --primary-light: #3B82F6;
+  --primary-glow: rgba(37, 99, 235, 0.15);
+  
+  /* Backgrounds - Neutros ultra-claros */
+  --background: #F8FAFC;
+  --background-radial: radial-gradient(ellipse at top, #FAFBFC 0%, #F8FAFC 100%);
+  --background-alt: #FFFFFF;
+  --card: rgba(255, 255, 255, 0.95);
+  --card-hover: rgba(255, 255, 255, 1);
+
+  /* Superfícies auxiliares (usadas em footers/caixas internas) */
+  --surface-muted: rgba(248, 250, 252, 0.55);
+  
+  /* Textos */
+  --text-primary: #0F172A;
+  --text-secondary: #1E293B;
+  --text-muted: #64748B;
+  --text-light: #94A3B8;
+  --text-placeholder: #CBD5E1;
+  
+  /* Bordas - Sutis */
+  --border: #E2E8F0;
+  --border-light: #F1F5F9;
+  --border-dark: #CBD5E1;
+  --border-focus: var(--primary);
+  
+  /* Estados */
+  --success: #10B981;
+  --success-light: #D1FAE5;
+  --warning: #F59E0B;
+  --warning-light: #FEF3C7;
+  --danger: #EF4444;
+  --danger-light: #FEE2E2;
+  --info: #3B82F6;
+  --info-light: #DBEAFE;
+  --accent: #F59E0B;
+  
+  /* Layout - Espaçamento 8pt */
+  --spacing-unit: 8px;
+  --radius: 24px;
+  --radius-sm: 16px;
+  --radius-lg: 32px;
+  
+  /* Shadows - Suaves e difusas */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.04), 0 10px 20px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.05), 0 20px 40px rgba(0, 0, 0, 0.08);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.06), 0 40px 60px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 0 3px var(--primary-glow);
+  
+  /* Transições */
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark mode (aplicado via <html data-theme="dark">) */
+:root[data-theme='dark'] {
+  --primary: #3B82F6;
+  --primary-dark: #2563EB;
+  --primary-light: #60A5FA;
+  --primary-glow: rgba(59, 130, 246, 0.18);
+
+  --background: #0B1220;
+  --background-radial: radial-gradient(ellipse at top, #0F172A 0%, #0B1220 100%);
+  --background-alt: #0F172A;
+  --card: rgba(15, 23, 42, 0.72);
+  --card-hover: rgba(15, 23, 42, 0.86);
+
+  /* Superfície sutil para áreas que antes eram cinza no tema claro */
+  --surface-muted: rgba(255, 255, 255, 0.08);
+
+  --text-primary: #E5E7EB;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+  --text-light: #64748B;
+  --text-placeholder: rgba(203, 213, 225, 0.45);
+
+  --border: rgba(148, 163, 184, 0.22);
+  --border-light: rgba(148, 163, 184, 0.14);
+  --border-dark: rgba(148, 163, 184, 0.30);
+  --border-focus: var(--primary);
+
+  --success: #34D399;
+  --success-light: rgba(16, 185, 129, 0.16);
+  --warning: #FBBF24;
+  --warning-light: rgba(245, 158, 11, 0.16);
+  --danger: #F87171;
+  --danger-light: rgba(239, 68, 68, 0.16);
+  --info: #60A5FA;
+  --info-light: rgba(59, 130, 246, 0.16);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.30);
+  --shadow-md: 0 6px 10px rgba(0, 0, 0, 0.28), 0 18px 28px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.32), 0 30px 55px rgba(0, 0, 0, 0.40);
+  --shadow-xl: 0 20px 35px rgba(0, 0, 0, 0.40), 0 60px 90px rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 0 0 3px var(--primary-glow);
+}
+
+/* Reset e base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 
+    'Helvetica Neue', Arial, sans-serif;
+  background: var(--background-radial);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+}
+
+/* Suaviza a troca de tema (apenas propriedades visuais principais) */
+body, .card {
+  transition: background-color var(--transition), color var(--transition), border-color var(--transition);
+}
+
+/* Tipografia - Estilo Editorial */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+h1 {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Utilitários globais */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Scrollbar customizada */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Animações */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsividade base */
+@media (max-width: 640px) {
+  body {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,32 @@
+<div class="redacao-container">
+  <div class="page-header">
+    <h1>Corrigir Redação</h1>
+    <p class="page-subtitle">Escreva sua redação e receba uma correção detalhada em segundos</p>
+  </div>
+
+  <app-redacao-form 
+    (enviarRedacao)="onEnviarRedacao($event)"
+  ></app-redacao-form>
+
+  <div class="loading-section" *ngIf="isLoading">
+    <div class="loading-card">
+      <div class="spinner"></div>
+      <h3>Enviando sua redação...</h3>
+      <p>Aguarde enquanto processamos o envio.</p>
+    </div>
+  </div>
+
+  <div class="success-section" *ngIf="redacaoEnviada && !isLoading">
+    <div class="success-card">
+      <div class="success-icon">✓</div>
+      <h3>Redação enviada com sucesso!</h3>
+      <p>Aguarde seu processo de correção. Você poderá visualizar o resultado em breve.</p>
+    </div>
+  </div>
+
+  <app-resultado-correcao 
+    *ngIf="resultado && !isLoading"
+    [resultado]="resultado"
+  ></app-resultado-correcao>
+</div>
+

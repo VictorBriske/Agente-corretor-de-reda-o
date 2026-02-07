@@ -1,0 +1,70 @@
+<div class="resultado-container">
+  <div class="info-banner">
+    <div class="banner-icon"></div>
+    <div class="banner-content">
+      <strong>Análise Completa</strong>
+      <span>Sua redação foi avaliada em todas as competências do ENEM</span>
+    </div>
+  </div>
+
+  <div class="resultado-header">
+    <div class="titulo-section">
+      <h2>Resultado da Análise</h2>
+      <p class="subtitulo">Confira abaixo a análise detalhada da sua redação</p>
+    </div>
+  </div>
+
+  <div class="comentario-geral">
+    <div class="comentario-header">
+      <h3>Comentário Geral</h3>
+    </div>
+    <p>{{ resultado.comentarioGeral }}</p>
+  </div>
+
+  <div class="competencias-grid">
+    <app-competencia-card 
+      *ngFor="let competencia of resultado.competencias"
+      [competencia]="competencia"
+    ></app-competencia-card>
+  </div>
+
+  <!-- Modo Socrático -->
+  <div class="modo-socratico" *ngIf="resultado.perguntasSocraticas && resultado.perguntasSocraticas.length > 0">
+    <div class="modo-header">
+      <h3>Modo Socrático</h3>
+      <p class="modo-subtitle">Perguntas para aprofundar sua reflexão e fortalecer a redação</p>
+    </div>
+
+    <div class="perguntas-grid">
+      <div class="pergunta-card" *ngFor="let p of resultado.perguntasSocraticas">
+        <div class="pergunta-top">
+          <span class="badge">Parágrafo {{ p.paragrafo }}</span>
+        </div>
+        <p class="pergunta-text">{{ p.pergunta }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Texto completo da redação -->
+  <div class="redacao-completa" *ngIf="resultado.textoRedacao">
+    <div class="redacao-header">
+      <h3>Sua Redação</h3>
+      <div class="redacao-meta" *ngIf="resultado.tituloRedacao || resultado.temaRedacao">
+        <span class="meta" *ngIf="resultado.tituloRedacao"><strong>Título:</strong> {{ resultado.tituloRedacao }}</span>
+        <span class="meta" *ngIf="resultado.temaRedacao"><strong>Tema:</strong> {{ resultado.temaRedacao }}</span>
+      </div>
+    </div>
+    <div class="redacao-texto" role="article" aria-label="Texto da redação com destaques">
+      <ng-container *ngFor="let seg of textoSegmentado">
+        <span
+          *ngIf="seg.melhoria; else normalText"
+          class="highlight"
+          tabindex="0"
+          [attr.data-tip]="tipText(seg.melhoria)"
+          [attr.aria-label]="tipText(seg.melhoria)"
+        >{{ seg.texto }}</span>
+        <ng-template #normalText>{{ seg.texto }}</ng-template>
+      </ng-container>
+    </div>
+  </div>
+</div>

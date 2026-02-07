@@ -1,0 +1,85 @@
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Evolua sua redação com IA</h1>
+      <p class="hero-subtitle">Correção de Redação com IA avançada. Tenha correções ilimitadas e detalhadas para levar sua escrita ao próximo nível!</p>
+      <div class="hero-actions">
+        <a routerLink="/app/redacao" class="btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+          </svg>
+          Corrigir Minha Redação
+        </a>
+        <a routerLink="/app/analises" class="btn-secondary">
+          Ver Minhas Análises
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Como Funciona -->
+  <section class="como-funciona-section">
+    <h2 class="section-title">Como Funciona? Três Passos Simples para uma Redação de Sucesso!</h2>
+    <div class="passos-grid">
+      <div class="passo-card">
+        <div class="passo-numero">1</div>
+        <h3>Escolha o Tema</h3>
+        <p>Escolha entre temas sugeridos ou escreva sobre um tema livre. Você tem total flexibilidade para praticar suas habilidades de escrita.</p>
+      </div>
+      <div class="passo-card">
+        <div class="passo-numero">2</div>
+        <h3>Escreva sua Redação</h3>
+        <p>Escreva sua redação com todas as ferramentas que você precisa, incluindo análise em tempo real e consulta ao tema.</p>
+      </div>
+      <div class="passo-card">
+        <div class="passo-numero">3</div>
+        <h3>Receba sua Correção</h3>
+        <p>Tenha sua redação corrigida em segundos com feedback detalhado por competência, ajudando você a melhorar continuamente.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dicas de Redação -->
+  <section class="dicas-section">
+    <h2 class="section-title">As 5 Competências do ENEM</h2>
+    <p class="section-subtitle">Entenda os critérios utilizados para corrigir sua redação</p>
+    <div class="dicas-grid">
+      <div class="dica-card" *ngFor="let dica of dicasRedacao">
+        <div class="dica-numero">{{ dica.numero }}</div>
+        <h3>{{ dica.titulo }}</h3>
+        <p>{{ dica.descricao }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ferramentas -->
+  <section class="ferramentas-section">
+    <h2 class="section-title">Ferramentas Avançadas para Melhorar sua Escrita!</h2>
+    <div class="ferramentas-grid">
+      <div class="ferramenta-card" *ngFor="let ferramenta of ferramentas">
+        <h3>{{ ferramenta.titulo }}</h3>
+        <p>{{ ferramenta.descricao }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="cta-section">
+    <div class="cta-card">
+      <h2>Pronto para melhorar sua redação?</h2>
+      <p>Experimente gratuitamente o nosso Corretor de Redação ENEM e descubra como ele pode elevar sua escrita ao próximo nível.</p>
+      <a routerLink="/app/redacao" class="btn-primary-large">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+        </svg>
+        Começar Agora
+      </a>
+    </div>
+  </section>
+</div>
+

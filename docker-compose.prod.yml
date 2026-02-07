@@ -1,0 +1,33 @@
+# Docker Compose - Produção (Socratis)
+# Uso: docker compose -f docker-compose.prod.yml up -d
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: socratis-api:latest
+    container_name: socratis-api
+    restart: unless-stopped
+    environment:
+      - ENVIRONMENT=production
+      - DEBUG=False
+    env_file:
+      - .env
+    expose:
+      - "8000"
+    # Sem volumes de código (imagem imutável em produção)
+    # Sem --reload
+
+  web:
+    build:
+      context: ./Agente-corretor-de-reda-o
+      dockerfile: Dockerfile
+    image: socratis-web:latest
+    container_name: socratis-web
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+    # Nginx dentro do container faz proxy para api:8000

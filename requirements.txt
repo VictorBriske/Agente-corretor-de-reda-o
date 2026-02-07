@@ -1,0 +1,33 @@
+# FastAPI e servidor
+fastapi
+uvicorn[standard]
+python-multipart
+
+# HTTP Client (para testes)
+requests
+
+# Validação e configuração
+pydantic
+pydantic-settings
+python-dotenv
+email-validator
+
+# Segurança e autenticação
+python-jose[cryptography]
+passlib[bcrypt]
+bcrypt
+
+# LLMs
+openai
+
+# Banco de Dados
+sqlalchemy
+psycopg2-binary
+alembic
+
+# Utilidades
+python-dateutil
+
+# Opcional: Gemini (instale separadamente se necessário)
+# google-generativeai
+

@@ -1,0 +1,38 @@
+<div class="perfil-container">
+  <div class="page-header">
+    <h1>Perfil</h1>
+    <p class="page-subtitle">Gerencie suas informações e configurações</p>
+  </div>
+
+  <div class="loading-state" *ngIf="isLoading">
+    <div class="spinner-small"></div>
+    <p>Carregando perfil...</p>
+  </div>
+
+  <div class="error-state" *ngIf="error && !isLoading">
+    <p>{{ error }}</p>
+    <button class="btn-retry" (click)="carregarPerfil()">Tentar novamente</button>
+  </div>
+
+  <div class="perfil-content" *ngIf="usuario && !isLoading">
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="avatar-large">
+          {{ usuario.nome.charAt(0).toUpperCase() }}
+        </div>
+        <div class="profile-info">
+          <h2>{{ usuario.nome }}</h2>
+          <p class="profile-email">{{ usuario.email }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card">
+        <div class="info-label">Membro desde</div>
+        <div class="info-value">{{ usuario.data_criacao | date:'dd/MM/yyyy' }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+

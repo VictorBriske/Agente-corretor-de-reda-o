@@ -1,0 +1,113 @@
+<div class="redacoes-container">
+  <div class="view-shell">
+    <!-- LISTA -->
+    <div
+      class="list-view"
+      [class.is-hidden]="listHidden"
+      [class.anim-out]="listAnimatingOut"
+      [class.anim-in]="listAnimatingIn"
+    >
+      <div class="page-header">
+        <h1>Minhas Análises</h1>
+        <p class="page-subtitle">Gerencie e acompanhe todas as suas redações</p>
+      </div>
+
+      <div class="loading-state" *ngIf="isLoading">
+        <div class="spinner-small"></div>
+        <p>Carregando redações...</p>
+      </div>
+
+      <div class="error-state" *ngIf="error && !isLoading">
+        <p>{{ error }}</p>
+        <button class="btn-retry" (click)="carregarRedacoes()">Tentar novamente</button>
+      </div>
+
+      <div class="redacoes-grid" *ngIf="!isLoading && !error">
+        <div class="redacao-card" *ngFor="let redacao of redacoes" [class]="getStatusClass(redacao.status)">
+          <div class="card-header">
+            <div class="card-title-section">
+              <h3>{{ redacao.titulo }}</h3>
+              <span class="status-badge" [class]="getStatusClass(redacao.status)">
+                {{ getStatusLabel(redacao.status) }}
+              </span>
+            <span
+              class="nota-badge"
+              *ngIf="redacao.status === 'concluida' && (redacao.nota_enem != null || redacao.nota_geral != null)"
+              title="Nota da análise"
+            >
+              {{ redacao.nota_enem != null ? redacao.nota_enem : (redacao.nota_geral != null ? (redacao.nota_geral | number:'1.1-1') : '') }}
+            </span>
+            </div>
+            <div class="card-meta">
+              <span class="meta-item">{{ redacao.tema }}</span>
+              <span class="meta-divider">•</span>
+              <span class="meta-item">{{ redacao.data_submissao | date:'dd/MM/yyyy' }}</span>
+            </div>
+          </div>
+          
+          <div class="card-body">
+            <p class="redacao-preview">{{ redacao.texto.substring(0, 200) }}{{ redacao.texto.length > 200 ? '...' : '' }}</p>
+          </div>
+          
+          <div class="card-footer">
+            <button 
+              class="btn-view" 
+              *ngIf="redacao.status === 'concluida'"
+              (click)="verAnalise(redacao.id)"
+              [disabled]="carregandoAnalise"
+            >
+              {{ carregandoAnalise && redacaoIdSelecionada === redacao.id ? 'Carregando...' : 'Ver Análise' }}
+            </button>
+            <button class="btn-view" *ngIf="redacao.status !== 'concluida'" disabled>
+              Aguardando processamento
+            </button>
+          </div>
+        </div>
+
+        <div class="empty-state" *ngIf="redacoes.length === 0">
+          <div class="empty-icon"></div>
+          <h3>Nenhuma redação encontrada</h3>
+          <p>Comece submetendo sua primeira redação para análise</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- DETALHE -->
+    <div
+      class="detail-view"
+      *ngIf="detailMounted"
+      [class.anim-in]="detailAnimatingIn"
+      [class.anim-out]="detailAnimatingOut"
+    >
+      <div class="analise-view">
+        <div class="analise-header-section">
+          <button class="btn-close" (click)="fecharAnalise()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Voltar
+          </button>
+        </div>
+
+        <div class="loading-analise" *ngIf="carregandoAnalise">
+          <div class="loading-card">
+            <div class="spinner"></div>
+            <h3>Carregando análise...</h3>
+            <p>Aguarde enquanto buscamos os detalhes da análise</p>
+          </div>
+        </div>
+
+        <div class="error-state" *ngIf="detailError && !carregandoAnalise">
+          <p>{{ detailError }}</p>
+          <button class="btn-retry" (click)="verAnalise(redacaoIdSelecionada!)" [disabled]="!redacaoIdSelecionada">
+            Tentar novamente
+          </button>
+        </div>
+
+        <app-resultado-correcao *ngIf="analiseSelecionada && !carregandoAnalise" [resultado]="analiseSelecionada"></app-resultado-correcao>
+      </div>
+    </div>
+  </div>
+</div>
+

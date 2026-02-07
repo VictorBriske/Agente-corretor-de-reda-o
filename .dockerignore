@@ -1,0 +1,15 @@
+# Git e IDE
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+.idea
+.vscode
+*.md
+__pycache__
+*.pyc
+.venv
+venv
+Agente-corretor-de-reda-o
+node_modules

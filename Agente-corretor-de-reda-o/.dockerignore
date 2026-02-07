@@ -1,0 +1,17 @@
+# Dependências (serão instaladas no build)
+node_modules
+npm-debug.log
+dist
+
+# Git e IDE
+.git
+.gitignore
+.idea
+.vscode
+*.md
+.editorconfig
+
+# Testes e cobertura
+coverage
+.angular
+*.spec.ts

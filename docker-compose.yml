@@ -1,0 +1,32 @@
+services:
+  api:
+    build: .
+    container_name: mentor-escrita-api
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - DEBUG=False
+    env_file:
+      - .env
+    restart: unless-stopped
+    volumes:
+      - ./app:/app/app  # Hot reload em desenvolvimento
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  # Opcional: adicionar banco de dados quando implementar
+  # db:
+  #   image: postgres:15
+  #   container_name: mentor-escrita-db
+  #   environment:
+  #     - POSTGRES_DB=mentor_escrita
+  #     - POSTGRES_USER=mentor
+  #     - POSTGRES_PASSWORD=senha_segura
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+
+# volumes:
+#   postgres_data:
+

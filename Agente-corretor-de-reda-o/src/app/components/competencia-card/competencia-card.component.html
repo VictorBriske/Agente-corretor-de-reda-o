@@ -1,0 +1,26 @@
+<div class="competencia-card">
+  <div class="card-header">
+    <div class="info">
+      <span class="badge-competencia">C{{ competencia.numero }}</span>
+      <h3>{{ competencia.nome }}</h3>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon analysis"></div>
+        <h4>Análise</h4>
+      </div>
+      <p>{{ competencia.feedback }}</p>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon suggestions"></div>
+        <h4>Sugestões de Melhoria</h4>
+      </div>
+      <p>{{ competencia.sugestoes }}</p>
+    </div>
+  </div>
+</div>

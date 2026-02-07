@@ -1,0 +1,125 @@
+<div class="form-container">
+  <div class="info-banner">
+    <div class="banner-icon"></div>
+    <div class="banner-content">
+      <strong>Dica</strong>
+      <span>Certifique-se de que sua redação tenha no mínimo 100 caracteres e esteja completa</span>
+    </div>
+  </div>
+  
+  <div class="card">
+    <h2>Sua Redação</h2>
+    <form (ngSubmit)="onSubmit()">
+      
+      <div class="form-group">
+        <label for="titulo">Título da Redação</label>
+        <input
+          type="text"
+          id="titulo"
+          [(ngModel)]="titulo"
+          name="titulo"
+          class="form-input"
+          [class.error]="hasFieldError('titulo')"
+          placeholder="Ex: A importância da educação no Brasil"
+          required
+          minlength="5"
+          [disabled]="isLoading"
+        />
+        <small class="text-muted" *ngIf="!hasFieldError('titulo')">
+          Mínimo de {{ MIN_TITULO_LENGTH }} caracteres
+        </small>
+        <small class="text-error" *ngIf="hasFieldError('titulo')">
+          {{ getFieldErrors('titulo')[0] }}
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="tema">Tema da Redação</label>
+        <select 
+          id="tema" 
+          [(ngModel)]="tema" 
+          name="tema"
+          class="form-select"
+          [disabled]="isLoading"
+        >
+          <option *ngFor="let temaOpcao of temasFixos" [value]="temaOpcao">
+            {{ temaOpcao === 'livre' ? 'Tema Livre' : temaOpcao }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="redacao">Escreva ou cole sua redação aqui</label>
+        <textarea
+          id="redacao"
+          [(ngModel)]="redacao"
+          name="redacao"
+          rows="15"
+          placeholder="Digite sua redação completa aqui..."
+          class="form-textarea"
+          [class.error]="hasFieldError('redacao')"
+          [class.warning]="isRedacaoTooShort && !hasFieldError('redacao')"
+          required
+          minlength="100"
+          [disabled]="isLoading"
+        ></textarea>
+        <div class="textarea-feedback">
+          <small 
+            class="text-muted" 
+            *ngIf="!hasFieldError('redacao') && !isRedacaoTooShort && !isRedacaoTooLong"
+            [class.success]="isRedacaoRecommended"
+          >
+            <span *ngIf="isRedacaoRecommended">✓ </span>
+            {{ redacaoLength }} caracteres digitados
+            <span *ngIf="isRedacaoRecommended"> · Tamanho recomendado!</span>
+            <span *ngIf="!isRedacaoRecommended && redacaoLength >= MIN_REDACAO_LENGTH">
+              · Recomendamos pelo menos {{ RECOMMENDED_REDACAO_LENGTH }} caracteres
+            </span>
+          </small>
+          <small 
+            class="text-warning" 
+            *ngIf="isRedacaoTooShort && !hasFieldError('redacao')"
+          >
+            ⚠ Ainda faltam {{ MIN_REDACAO_LENGTH - redacaoLength }} caracteres para o mínimo
+          </small>
+          <small 
+            class="text-error" 
+            *ngIf="hasFieldError('redacao')"
+          >
+            {{ getFieldErrors('redacao')[0] }}
+          </small>
+          <small 
+            class="text-error" 
+            *ngIf="isRedacaoTooLong"
+          >
+            ⚠ A redação excede o limite de {{ MAX_REDACAO_LENGTH }} caracteres
+          </small>
+        </div>
+      </div>
+
+      <!-- Banner de validação -->
+      <div class="validation-banner error" *ngIf="showValidationErrors && validationErrors.length > 0">
+        <div class="banner-icon">⚠</div>
+        <div class="banner-content">
+          <strong>Corrija os seguintes problemas antes de enviar:</strong>
+          <ul>
+            <li *ngFor="let error of validationErrors">{{ error.message }}</li>
+          </ul>
+        </div>
+      </div>
+
+      <button 
+        type="submit" 
+        class="btn-primary"
+        [disabled]="isLoading || !isValid"
+      >
+        <span *ngIf="!isLoading">
+          Enviar para Correção
+        </span>
+        <span *ngIf="isLoading">
+          Analisando sua redação...
+        </span>
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,121 @@
+<div class="cadastro-container">
+  <div class="card">
+    <h2>Cadastro</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input
+          type="text"
+          id="nome"
+          [(ngModel)]="nome"
+          name="nome"
+          class="form-input"
+          placeholder="Seu nome completo"
+          required
+          minlength="3"
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          [(ngModel)]="email"
+          name="email"
+          class="form-input"
+          placeholder="seu@email.com"
+          required
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <div class="input-wrapper">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="senha"
+            [(ngModel)]="senha"
+            name="senha"
+            class="form-input"
+            placeholder="Mínimo 6 caracteres"
+            required
+            minlength="6"
+            [disabled]="isLoading"
+          />
+          <button
+            type="button"
+            class="password-toggle"
+            (click)="showPassword = !showPassword"
+            [disabled]="isLoading"
+            tabindex="-1"
+          >
+            <svg *ngIf="!showPassword" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <svg *ngIf="showPassword" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+              <line x1="1" y1="1" x2="23" y2="23"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmarSenha">Confirmar Senha</label>
+        <div class="input-wrapper">
+          <input
+            [type]="showConfirmPassword ? 'text' : 'password'"
+            id="confirmarSenha"
+            [(ngModel)]="confirmarSenha"
+            name="confirmarSenha"
+            class="form-input"
+            placeholder="Digite a senha novamente"
+            required
+            [disabled]="isLoading"
+          />
+          <button
+            type="button"
+            class="password-toggle"
+            (click)="showConfirmPassword = !showConfirmPassword"
+            [disabled]="isLoading"
+            tabindex="-1"
+          >
+            <svg *ngIf="!showConfirmPassword" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <svg *ngIf="showConfirmPassword" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+              <line x1="1" y1="1" x2="23" y2="23"></line>
+            </svg>
+          </button>
+        </div>
+        <small *ngIf="senha && confirmarSenha && senha !== confirmarSenha" class="text-error">
+          As senhas não coincidem
+        </small>
+      </div>
+
+      <div class="error-message" *ngIf="error">
+        {{ error }}
+      </div>
+
+      <button
+        type="submit"
+        class="btn-primary"
+        [disabled]="isLoading || !isValid"
+      >
+        <span *ngIf="!isLoading">Criar Conta</span>
+        <span *ngIf="isLoading">Criando conta...</span>
+      </button>
+
+      <div class="switch-link">
+        <p>Já tem uma conta? <a routerLink="/login">Faça login</a></p>
+      </div>
+    </form>
+  </div>
+</div>
+
