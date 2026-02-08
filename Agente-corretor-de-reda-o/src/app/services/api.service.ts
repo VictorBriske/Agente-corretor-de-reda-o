@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = environment.apiUrl || 'http://localhost:8000/api/v1';
+  private apiUrl = environment.apiUrl;
   private tokenSubject = new BehaviorSubject<string | null>(this.getToken());
   public token$ = this.tokenSubject.asObservable();
 
